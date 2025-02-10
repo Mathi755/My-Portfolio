@@ -154,13 +154,16 @@ const Index = () => {
       <section id="home" className="section-padding flex flex-col items-center justify-center min-h-screen relative" data-scroll>
         <div className="glass p-8 rounded-2xl max-w-4xl w-full text-center space-y-6 animate-float hover:scale-105 transition-all duration-300">
           <div className="relative w-32 h-32 mx-auto mb-6 group">
-            <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse group-hover:bg-primary/40 transition-colors"></div>
-            <img
-              src="https://raw.githubusercontent.com/Mathi755/My-Portfolio/main/public/Mathi.jpg"
-              alt="Gomathi Nayagam"
-              className="rounded-full w-full h-full object-cover relative z-10 transition-transform duration-300 group-hover:scale-110"
-            />
-          </div>
+            <div className="relative group">
+  <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse group-hover:bg-primary/40 transition-colors"></div>
+  <img
+    src="https://raw.githubusercontent.com/Mathi755/My-Portfolio/main/public/Mathi.jpg"
+    alt="Gomathi Nayagam"
+    className="rounded-full w-64 h-64 object-cover relative z-10 transition-transform duration-300 group-hover:scale-110"
+  />
+</div>
+
+
           <h1 className="text-4xl md:text-5xl font-bold text-primary animate-fade-in">
             Gomathi Nayagam S R
           </h1>
