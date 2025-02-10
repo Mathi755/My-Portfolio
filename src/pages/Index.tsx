@@ -8,7 +8,9 @@ import {
   Instagram, 
   Linkedin, 
   Mail, 
-  User 
+  User,
+  ArrowRight,
+  ChevronDown
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -29,45 +31,46 @@ const Index = () => {
       
       {/* Hero Section */}
       <section className="section-padding flex flex-col items-center justify-center min-h-screen relative">
-        <div className="glass p-8 rounded-2xl max-w-4xl w-full text-center space-y-6 animate-float">
-          <div className="relative w-32 h-32 mx-auto mb-6">
-            <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse"></div>
+        <div className="glass p-8 rounded-2xl max-w-4xl w-full text-center space-y-6 animate-float hover:scale-105 transition-all duration-300">
+          <div className="relative w-32 h-32 mx-auto mb-6 group">
+            <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse group-hover:bg-primary/40 transition-colors"></div>
             <img
               src="https://via.placeholder.com/128"
               alt="Gomathi Nayagam"
-              className="rounded-full w-full h-full object-cover relative z-10"
+              className="rounded-full w-full h-full object-cover relative z-10 transition-transform duration-300 group-hover:scale-110"
             />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-primary">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary animate-fade-in">
             Gomathi Nayagam S R
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-muted-foreground animate-fade-in delay-100">
             Data Scientist | Web Developer | Problem Solver
           </p>
-          <div className="flex justify-center gap-4 pt-4">
-            <Button variant="outline" size="icon" asChild>
+          <div className="flex justify-center gap-4 pt-4 animate-fade-in delay-200">
+            <Button variant="outline" size="icon" asChild className="hover:scale-110 transition-transform hover:bg-primary hover:text-white">
               <a href="https://www.linkedin.com/in/gomathi--nayagam/" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="h-5 w-5" />
               </a>
             </Button>
-            <Button variant="outline" size="icon" asChild>
+            <Button variant="outline" size="icon" asChild className="hover:scale-110 transition-transform hover:bg-primary hover:text-white">
               <a href="https://github.com/Mathi755" target="_blank" rel="noopener noreferrer">
                 <Github className="h-5 w-5" />
               </a>
             </Button>
-            <Button variant="outline" size="icon" asChild>
+            <Button variant="outline" size="icon" asChild className="hover:scale-110 transition-transform hover:bg-primary hover:text-white">
               <a href="https://www.instagram.com/prince__mathi__/" target="_blank" rel="noopener noreferrer">
                 <Instagram className="h-5 w-5" />
               </a>
             </Button>
           </div>
+          <ChevronDown className="w-6 h-6 absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-primary" />
         </div>
       </section>
 
       {/* Skills Section */}
       <section className="section-padding bg-muted/50">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Skills</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 animate-fade-in">Skills</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               "Python",
@@ -78,9 +81,13 @@ const Index = () => {
               "Java",
               "MERN Stack",
               "Poster Designing",
-            ].map((skill) => (
-              <Card key={skill} className="p-6 glass hover:scale-105 transition-transform">
-                <h3 className="font-semibold text-lg">{skill}</h3>
+            ].map((skill, index) => (
+              <Card 
+                key={skill} 
+                className="p-6 glass hover:scale-105 transition-all duration-300 hover:shadow-lg hover:border-primary cursor-pointer group animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">{skill}</h3>
               </Card>
             ))}
           </div>
@@ -90,7 +97,7 @@ const Index = () => {
       {/* Education & Experience */}
       <section className="section-padding">
         <div className="max-w-4xl mx-auto space-y-12">
-          <div className="glass p-8 rounded-2xl">
+          <div className="glass p-8 rounded-2xl hover:scale-105 transition-all duration-300 hover:shadow-lg animate-fade-in">
             <h2 className="text-3xl font-bold mb-6">Education</h2>
             <div className="space-y-4">
               <p className="text-xl font-semibold">SRM Institute of Science and Technology</p>
@@ -98,15 +105,15 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="glass p-8 rounded-2xl">
+          <div className="glass p-8 rounded-2xl hover:scale-105 transition-all duration-300 hover:shadow-lg animate-fade-in delay-100">
             <h2 className="text-3xl font-bold mb-6">Experience</h2>
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">Technical Member of DSBS Association</h3>
               <p className="text-muted-foreground">
                 Active member of the DSBS Association at SRM Institute of Science and Technology
               </p>
-              <div className="mt-4">
-                <h4 className="font-semibold">INNOFUSION '25 Website</h4>
+              <div className="mt-4 group">
+                <h4 className="font-semibold group-hover:text-primary transition-colors">INNOFUSION '25 Website</h4>
                 <p className="text-muted-foreground">
                   Created a website for the DSBS Association event, INNOFUSION '25
                 </p>
@@ -114,9 +121,9 @@ const Index = () => {
                   href="https://innofusion.netlify.app" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-primary hover:underline"
+                  className="inline-flex items-center gap-2 text-primary hover:gap-3 transition-all hover:underline mt-2"
                 >
-                  View Project
+                  View Project <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
             </div>
@@ -127,24 +134,27 @@ const Index = () => {
       {/* Contact Section */}
       <section className="section-padding bg-muted/50">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Get in Touch</h2>
-          <div className="glass p-8 rounded-2xl">
+          <h2 className="text-3xl font-bold text-center mb-12 animate-fade-in">Get in Touch</h2>
+          <div className="glass p-8 rounded-2xl hover:scale-105 transition-all duration-300 hover:shadow-lg animate-fade-in delay-100">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <Mail className="h-5 w-5 text-primary" />
-                  <a href="mailto:pythonwithmathi@gmail.com" className="hover:text-primary">
+                <div className="flex items-center gap-2 group hover:text-primary transition-colors">
+                  <Mail className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
+                  <a href="mailto:pythonwithmathi@gmail.com" className="hover:underline">
                     pythonwithmathi@gmail.com
                   </a>
                 </div>
-                <div className="flex items-center gap-2">
-                  <User className="h-5 w-5 text-primary" />
+                <div className="flex items-center gap-2 group hover:text-primary transition-colors">
+                  <User className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
                   <span>Chennai, Tamil Nadu</span>
                 </div>
               </div>
               <div className="flex flex-col gap-4">
-                <Button onClick={handleDownloadResume} className="w-full">
-                  <Download className="mr-2 h-4 w-4" /> Download Resume
+                <Button 
+                  onClick={handleDownloadResume} 
+                  className="w-full hover:scale-105 transition-transform group"
+                >
+                  <Download className="mr-2 h-4 w-4 group-hover:animate-bounce" /> Download Resume
                 </Button>
               </div>
             </div>
