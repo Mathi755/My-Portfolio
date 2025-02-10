@@ -1,6 +1,9 @@
+
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { 
   Download, 
   Github, 
@@ -14,6 +17,7 @@ import {
   Briefcase,
   GraduationCap,
   Award,
+  Send
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
@@ -28,15 +32,26 @@ const Index = () => {
   const { toast } = useToast();
   const [cursor, setCursor] = useState({ x: -100, y: -100 });
   const [isExpanded, setIsExpanded] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
 
   useEffect(() => {
     const handleScroll = () => {
       const elements = document.querySelectorAll('[data-scroll]');
-      elements.forEach(element => {
+      elements.forEach((element, index) => {
         const rect = element.getBoundingClientRect();
         const isVisible = rect.top < window.innerHeight - 100;
         if (isVisible) {
           element.classList.add('scroll-animate');
+          // Alternate between right and left animations
+          if (index % 2 === 0) {
+            element.setAttribute('data-scroll', 'right');
+          } else {
+            element.setAttribute('data-scroll', 'left');
+          }
         }
       });
     };
@@ -68,6 +83,16 @@ const Index = () => {
       description: "Your resume download will begin shortly.",
     });
     // Add resume download logic here
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Here you would typically handle the form submission
+    toast({
+      title: "Message Sent",
+      description: "Thank you for your message. I'll get back to you soon!",
+    });
+    setFormData({ name: "", email: "", message: "" });
   };
 
   const scrollToSection = (id: string) => {
@@ -245,28 +270,43 @@ const Index = () => {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 animate-fade-in">Get in Touch</h2>
           <div className="glass p-8 rounded-2xl hover:scale-105 transition-all duration-300 hover:shadow-lg animate-fade-in delay-100">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-4">
-                <div className="flex items-center gap-2 group hover:text-primary transition-colors">
+                <Input
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="bg-background/50"
+                  required
+                />
+                <Input
+                  type="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="bg-background/50"
+                  required
+                />
+                <Textarea
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="bg-background/50 min-h-[150px]"
+                  required
+                />
+              </div>
+              <div className="flex justify-between items-center gap-4">
+                <div className="flex items-center gap-2 group">
                   <Mail className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
-                  <a href="mailto:pythonwithmathi@gmail.com" className="hover:underline">
+                  <a href="mailto:pythonwithmathi@gmail.com" className="hover:text-primary transition-colors">
                     pythonwithmathi@gmail.com
                   </a>
                 </div>
-                <div className="flex items-center gap-2 group hover:text-primary transition-colors">
-                  <User className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
-                  <span>Chennai, Tamil Nadu</span>
-                </div>
-              </div>
-              <div className="flex flex-col gap-4">
-                <Button 
-                  onClick={handleDownloadResume} 
-                  className="w-full hover:scale-105 transition-transform group"
-                >
-                  <Download className="mr-2 h-4 w-4 group-hover:animate-bounce" /> Download Resume
+                <Button type="submit" className="hover:scale-105 transition-transform">
+                  <Send className="mr-2 h-4 w-4" /> Send Message
                 </Button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </section>
@@ -280,3 +320,4 @@ const Index = () => {
 };
 
 export default Index;
+
