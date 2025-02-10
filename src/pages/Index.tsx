@@ -1,4 +1,3 @@
-
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -10,10 +9,20 @@ import {
   Mail, 
   User,
   ArrowRight,
-  ChevronDown
+  ChevronDown,
+  Home,
+  Briefcase,
+  GraduationCap,
+  Award,
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Index = () => {
   const { toast } = useToast();
@@ -61,6 +70,13 @@ const Index = () => {
     // Add resume download logic here
   };
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div 
@@ -71,10 +87,46 @@ const Index = () => {
         }}
       />
 
-      <ThemeToggle />
+      <nav className="fixed top-0 right-0 p-4 z-50 flex items-center gap-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="group">
+              Menu
+              <ChevronDown className="h-4 w-4 ml-2 group-hover:rotate-180 transition-transform" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-48">
+            <DropdownMenuItem onClick={() => scrollToSection('home')} className="cursor-pointer group">
+              <Home className="mr-2 h-4 w-4 group-hover:text-primary transition-colors" />
+              <span>Home</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => scrollToSection('about')} className="cursor-pointer group">
+              <User className="mr-2 h-4 w-4 group-hover:text-primary transition-colors" />
+              <span>About</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => scrollToSection('skills')} className="cursor-pointer group">
+              <Award className="mr-2 h-4 w-4 group-hover:text-primary transition-colors" />
+              <span>Skills</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => scrollToSection('education')} className="cursor-pointer group">
+              <GraduationCap className="mr-2 h-4 w-4 group-hover:text-primary transition-colors" />
+              <span>Education</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => scrollToSection('experience')} className="cursor-pointer group">
+              <Briefcase className="mr-2 h-4 w-4 group-hover:text-primary transition-colors" />
+              <span>Experience</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => scrollToSection('contact')} className="cursor-pointer group">
+              <Mail className="mr-2 h-4 w-4 group-hover:text-primary transition-colors" />
+              <span>Contact</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <ThemeToggle />
+      </nav>
       
       {/* Hero Section */}
-      <section className="section-padding flex flex-col items-center justify-center min-h-screen relative" data-scroll>
+      <section id="home" className="section-padding flex flex-col items-center justify-center min-h-screen relative" data-scroll>
         <div className="glass p-8 rounded-2xl max-w-4xl w-full text-center space-y-6 animate-float hover:scale-105 transition-all duration-300">
           <div className="relative w-32 h-32 mx-auto mb-6 group">
             <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse group-hover:bg-primary/40 transition-colors"></div>
@@ -111,8 +163,20 @@ const Index = () => {
         </div>
       </section>
 
+      {/* About Section */}
+      <section id="about" className="section-padding bg-muted/50" data-scroll>
+        <div className="max-w-4xl mx-auto glass p-8 rounded-2xl animate-fade-in">
+          <h2 className="text-3xl font-bold mb-6">About Me</h2>
+          <p className="text-lg text-muted-foreground">
+            Passionate about coding, problem-solving, and puzzles. I aspire to become a Data Scientist
+            and am currently pursuing my degree in CSE with Data Science at SRM Institute of Science and Technology.
+            When I'm not coding, you can find me solving Rubik's Cubes or playing chess - I'm a Tamil Nadu State Chess Player!
+          </p>
+        </div>
+      </section>
+
       {/* Skills Section */}
-      <section className="section-padding bg-muted/50" data-scroll>
+      <section id="skills" className="section-padding bg-muted/50" data-scroll>
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Skills</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -140,7 +204,7 @@ const Index = () => {
       </section>
 
       {/* Education & Experience */}
-      <section className="section-padding" data-scroll>
+      <section id="education" className="section-padding" data-scroll>
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="glass p-8 rounded-2xl hover:scale-105 transition-all duration-300 hover:shadow-lg animate-fade-in">
             <h2 className="text-3xl font-bold mb-6">Education</h2>
@@ -177,7 +241,7 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="section-padding bg-muted/50" data-scroll>
+      <section id="contact" className="section-padding bg-muted/50" data-scroll>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 animate-fade-in">Get in Touch</h2>
           <div className="glass p-8 rounded-2xl hover:scale-105 transition-all duration-300 hover:shadow-lg animate-fade-in delay-100">
