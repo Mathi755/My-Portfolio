@@ -152,7 +152,7 @@ const Index = () => {
       
       {/* Hero Section */}
       <section id="home" className="section-padding flex flex-col items-center justify-center min-h-screen relative" data-scroll>
-        <div className="glass p-8 rounded-2xl max-w-4xl w-full text-center space-y-6 animate-float hover:scale-105 transition-all duration-300">
+        <div className="glass p-8 rounded-3xl max-w-4xl w-full text-center space-y-6 animate-float hover:scale-105 transition-all duration-300">
           <div className="relative w-32 h-32 mx-auto mb-6 group">
             <div className="relative group">
   <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse group-hover:bg-primary/40 transition-colors"></div>
