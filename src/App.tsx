@@ -6,7 +6,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
 const App = () => (
-  <ThemeProvider defaultTheme="light" storageKey="gomathi-theme">
+  <ThemeProvider defaultTheme="dark" storageKey="gomathi-theme">
     <Toaster />
     <BrowserRouter>
       <Routes>
