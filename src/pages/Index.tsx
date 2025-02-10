@@ -13,9 +13,45 @@ import {
   ChevronDown
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useEffect, useState } from "react";
 
 const Index = () => {
   const { toast } = useToast();
+  const [cursor, setCursor] = useState({ x: -100, y: -100 });
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const elements = document.querySelectorAll('[data-scroll]');
+      elements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight - 100;
+        if (isVisible) {
+          element.classList.add('scroll-animate');
+        }
+      });
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setCursor({ x: e.clientX - 16, y: e.clientY - 16 });
+    };
+
+    const handleClick = () => {
+      setIsExpanded(true);
+      setTimeout(() => setIsExpanded(false), 500);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('click', handleClick);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('click', handleClick);
+    };
+  }, []);
 
   const handleDownloadResume = () => {
     toast({
@@ -27,10 +63,18 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <div 
+        className={`cursor ${isExpanded ? 'expand' : ''}`}
+        style={{ 
+          left: `${cursor.x}px`,
+          top: `${cursor.y}px`
+        }}
+      />
+
       <ThemeToggle />
       
       {/* Hero Section */}
-      <section className="section-padding flex flex-col items-center justify-center min-h-screen relative">
+      <section className="section-padding flex flex-col items-center justify-center min-h-screen relative" data-scroll>
         <div className="glass p-8 rounded-2xl max-w-4xl w-full text-center space-y-6 animate-float hover:scale-105 transition-all duration-300">
           <div className="relative w-32 h-32 mx-auto mb-6 group">
             <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse group-hover:bg-primary/40 transition-colors"></div>
@@ -68,9 +112,9 @@ const Index = () => {
       </section>
 
       {/* Skills Section */}
-      <section className="section-padding bg-muted/50">
+      <section className="section-padding bg-muted/50" data-scroll>
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 animate-fade-in">Skills</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Skills</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               "Python",
@@ -84,8 +128,9 @@ const Index = () => {
             ].map((skill, index) => (
               <Card 
                 key={skill} 
-                className="p-6 glass hover:scale-105 transition-all duration-300 hover:shadow-lg hover:border-primary cursor-pointer group animate-fade-in"
+                className="p-6 glass hover:scale-105 transition-all duration-300 hover:shadow-lg cursor-pointer group"
                 style={{ animationDelay: `${index * 100}ms` }}
+                data-scroll
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">{skill}</h3>
               </Card>
@@ -95,7 +140,7 @@ const Index = () => {
       </section>
 
       {/* Education & Experience */}
-      <section className="section-padding">
+      <section className="section-padding" data-scroll>
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="glass p-8 rounded-2xl hover:scale-105 transition-all duration-300 hover:shadow-lg animate-fade-in">
             <h2 className="text-3xl font-bold mb-6">Education</h2>
@@ -132,7 +177,7 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="section-padding bg-muted/50">
+      <section className="section-padding bg-muted/50" data-scroll>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 animate-fade-in">Get in Touch</h2>
           <div className="glass p-8 rounded-2xl hover:scale-105 transition-all duration-300 hover:shadow-lg animate-fade-in delay-100">
