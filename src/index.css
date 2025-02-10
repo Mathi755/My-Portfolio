@@ -127,7 +127,7 @@
 }
 
 .glass {
-  @apply bg-black/10 backdrop-blur-lg border border-white/10;
+  @apply bg-blue/10 backdrop-blur-lg border border-white/10;
 }
 
 .section-padding {
